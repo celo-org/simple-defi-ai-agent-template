@@ -1,76 +1,188 @@
+# Celo Composer - Simple DeFi AI Agent Template
 
-<div align="center">
-<img src="https://github.com/user-attachments/assets/5fc7f121-259c-492c-8bca-f15fe7eb830c" alt="GOAT" width="100px" height="auto" style="object-fit: contain;">
-</div>
+A powerful AI agent template for building DeFi applications on Celo using Uniswap V3 integration. This template enables AI agents to perform token swaps, get quotes, and interact with DeFi protocols on the Celo network.
 
-# Swap tokens on EVM
-## 🚀 Quickstart
+## 🌟 Features
 
-This example demonstrates how to use GOAT to **swap ERC-20 tokens on [Uniswap](https://uniswap.org/)** on EVM networks. This example uses [Base](https://base.org) but you can implement it with any other EVM network by changing the chain and RPC URL.
+- **AI-Powered DeFi Operations**: Natural language interface for token swaps and DeFi interactions
+- **Uniswap V3 Integration**: Seamless integration with Uniswap V3 on Celo mainnet
+- **Multi-Token Support**: Built-in support for CELO, cUSD, and cEUR tokens
+- **Real-time Quotes**: Get accurate swap quotes before executing transactions
+- **Slippage Protection**: Configurable slippage tolerance for safe trading
+- **Interactive CLI**: Chat-based interface for easy interaction with the AI agent
 
-You can use this example with any other agent framework, chain, and wallet of your choice. You can also use other swap providers like [0x](https://github.com/goat-sdk/goat/tree/main/typescript/packages/plugins/0x), [Balancer](https://github.com/goat-sdk/goat/tree/main/typescript/packages/plugins/balancer) and [KIM](https://github.com/goat-sdk/goat/tree/main/typescript/packages/plugins/kim) by changing the plugin.
+## 🚀 Quick Start
 
-## Setup
-1. Clone the repository:
+### Prerequisites
+
+- Node.js 18+ and npm/pnpm
+- Celo wallet with some CELO for gas fees
+- OpenAI API key
+
+### Installation
+
+1. **Clone the repository**:
+
 ```bash
-git clone https://github.com/goat-sdk/goat.git && cd goat
+git clone <repository-url>
+cd simple-defi-ai-agent-template
 ```
 
-2. Run the following commands from the `typescript` directory:
+2. **Install dependencies**:
+
 ```bash
-cd typescript
+npm install
+# or
 pnpm install
-pnpm build
 ```
 
-3. Go to the example directory:
-```bash
-cd examples/by-use-case/evm-swap-tokens
-```
+3. **Set up environment variables**:
 
-4. Copy the `.env.template` and populate with your values:
 ```bash
 cp .env.template .env
 ```
-- `OPENAI_API_KEY`
-- `WALLET_PRIVATE_KEY`
-- `RPC_PROVIDER_URL`
 
-The Uniswap API will be populated already with values you can use for testing. To get your own production ready Uniswap API key, go to [Uniswap Hub](https://hub.uniswap.org/).
+Fill in your `.env` file with:
 
-## Usage
-1. Run the interactive CLI:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+WALLET_PRIVATE_KEY=your_wallet_private_key_here
+RPC_PROVIDER_URL=https://rpc.ankr.com/celo
+```
+
+### Usage
+
+1. **Start the AI agent**:
+
 ```bash
+npm run dev
+# or
 pnpm ts-node index.ts
 ```
 
-2. Chat with the agent:
-- Swap 1 USDC for PEPE
-- Swap 100 PEPE for USDC
-- Check your balance again to see the tokens you just swapped
+2. **Interact with the agent**:
 
-## Using in production
-In production, developers require advanced wallet setups that utilize [smart wallets](https://docs.goat-sdk.com/concepts/smart-wallets), which allow them to:
-1. **Increase security** by setting programmable permissions (e.g. limiting fund amounts, restricting contract interactions, and defining required signatures)
-2. **Maintain regulatory compliance** by ensuring agent wallets are non-custodial. This means that:
-     - Launchpads, wallet providers, or agent platforms never have access to agents' wallets.
-     - Agent platforms do not require money transmitter licenses.
+```
+Enter your prompt: "Swap 1 CELO for cUSD"
+Enter your prompt: "Get a quote for swapping 100 cUSD to cEUR"
+Enter your prompt: "What's the current price of CELO in cUSD?"
+```
 
-### Agent Wallets
-[Crossmint](https://docs.crossmint.com/wallets/quickstarts/agent-wallets) offers one of the most advanced solutions for agent developers and launchpads: [Agent Wallets](https://docs.crossmint.com/wallets/quickstarts/agent-wallets).
+## 🔧 Supported Operations
 
-To integrate Agent Wallets with GOAT, check out the following quickstarts:
-1. Agent Wallets Quickstart [[EVM](https://github.com/goat-sdk/goat/tree/main/typescript/examples/by-wallet/crossmint-smart-wallets), [Solana](https://github.com/goat-sdk/goat/tree/main/typescript/examples/by-wallet/crossmint-smart-wallets)]
-2. [Agent Launchpad Starter Kit](https://github.com/Crossmint/agent-launchpad-starter-kit/)
+### Token Swaps
 
+- **Exact Input Swaps**: Swap a specific amount of input tokens
+- **Quote Generation**: Get estimated output amounts before swapping
+- **Slippage Protection**: Configurable slippage tolerance (default: 1%)
 
+### Supported Tokens
 
+- **CELO**: Native Celo token (`0x471EcE3750Da237f93B8E339c536989b8978a438`)
+- **cUSD**: Celo Dollar (`0x765DE816845861e75A25fCA122bb6898B8B1282a`)
+- **cEUR**: Celo Euro (`0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73`)
 
-<footer>
-<br/>
-<br/>
-<div>
-  <img src="https://github.com/user-attachments/assets/59fa5ddc-9d47-4d41-a51a-64f6798f94bd" alt="GOAT" width="100%" height="auto" style="object-fit: contain; max-width: 800px;">
+## 🏗️ Architecture
 
-<div>
-</footer>
+### Core Components
+
+- **`index.ts`**: Main application entry point with AI agent setup
+- **`plugin/uniswap.service.ts`**: Uniswap V3 integration service
+- **`plugin/constants.ts`**: Contract addresses and token configurations
+- **`plugin/parameters.ts`**: Parameter schemas and validation
+- **`plugin/abis/`**: Contract ABIs for Uniswap V3 interactions
+
+### Smart Contract Addresses (Celo Mainnet)
+
+- **SwapRouter02**: `0x5615CDAb10dc425a742d643d949a7F474C01abc4`
+- **UniswapV3Factory**: `0xAfE208a311B21f13EF87E33A90049fC17A7acDEc`
+- **QuoterV2**: `0x82825d0554fA07f7FC52Ab63c961F330fdEFa8E8`
+
+## 🛡️ Security Best Practices
+
+### For Development
+
+- Use testnet (Alfajores) for development and testing
+- Never commit private keys to version control
+- Use environment variables for sensitive information
+
+### For Production
+
+- **Multi-sig Wallets**: Use multi-signature wallets for enhanced security
+- **Smart Wallets**: Consider implementing smart wallet solutions with programmable permissions
+- **Slippage Limits**: Set appropriate slippage limits to prevent MEV attacks
+- **Amount Limits**: Implement transaction amount limits for risk management
+
+## 🔄 Customization
+
+### Adding New Tokens
+
+1. Add token configuration to `plugin/constants.ts`:
+
+```typescript
+export const NEW_TOKEN = new Token(
+  celo.id,
+  "0x...", // Token address
+  18, // Decimals
+  "SYMBOL",
+  "Token Name"
+);
+```
+
+2. Update `SUPPORTED_TOKENS` object to include the new token.
+
+### Modifying AI Behavior
+
+- Update tool descriptions in `plugin/uniswap.service.ts`
+- Modify parameter schemas in `plugin/parameters.ts`
+- Adjust the AI model configuration in `index.ts`
+
+## 📊 Example Interactions
+
+```bash
+# Get a quote
+"What's the estimated output for swapping 10 CELO to cUSD?"
+
+# Execute a swap
+"Swap 5 cUSD for cEUR with 2% slippage tolerance"
+
+# Check swap feasibility
+"Can I swap 1000 CELO for cUSD? What would be the impact?"
+```
+
+## 🌐 Network Configuration
+
+### Celo Mainnet
+
+- **Chain ID**: 42220
+- **RPC URL**: `https://rpc.ankr.com/celo`
+- **Block Explorer**: [Celoscan](https://celoscan.io/)
+
+### Celo Testnet (Alfajores)
+
+- **Chain ID**: 44787
+- **RPC URL**: `https://alfajores-forno.celo-testnet.org`
+- **Block Explorer**: [Alfajores Explorer](https://alfajores.celoscan.io/)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📚 Resources
+
+- [Celo Documentation](https://docs.celo.org/)
+- [Uniswap V3 Documentation](https://docs.uniswap.org/)
+- [Celo Composer](https://github.com/celo-org/celo-composer)
+- [Viem Documentation](https://viem.sh/)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ⚠️ Disclaimer
+
+This is a template for educational and development purposes. Always thoroughly test in a safe environment before deploying to production. The authors are not responsible for any financial losses incurred through the use of this software.
